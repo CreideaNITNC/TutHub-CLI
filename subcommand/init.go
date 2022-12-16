@@ -13,9 +13,7 @@ func Init(args []string) {
 	if len(flags.Args()) > 0 {
 		panic(fmt.Errorf("引数が多すぎます。"))
 	}
-	if repository, error := os.Stat(".tut"); error != nil {
-		panic(error)
-	} else if repository.IsDir() {
+	if repository, error := os.Stat(".tut"); error == nil && repository.IsDir() {
 		panic(fmt.Errorf("リポジトリが既に存在しています。"))
 	}
 	if error := os.Mkdir(".tut", os.ModePerm); error != nil {

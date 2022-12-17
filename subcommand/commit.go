@@ -37,7 +37,7 @@ func Commit(args []string) {
 	var files []repository.File
 	readJson(".tut/stage.json", &files)
 	for _, picture := range pictures {
-		content := make([]byte, 1024)
+		content := make([]byte, 1_000_000_000)
 		file, error := os.Open(picture)
 		defer file.Close()
 		if error != nil {

@@ -11,7 +11,7 @@ func StartSection(args []string) {
 	flags := flag.NewFlagSet("start-section", flag.ExitOnError)
 	flags.Parse(args)
 	if flags.NArg() != 1 {
-		panic(fmt.Errorf("引数が多すぎます。"))
+		panic(fmt.Errorf("引数の数が合いません。"))
 	}
 	var data repository.Data
 	readJson(".tut/data.json", &data)

@@ -20,6 +20,6 @@ func Init(args []string) {
 		panic(error)
 	}
 	writeJson(".tut/config.json", repository.Config{Remote: []repository.RemoteRepository{}})
-	writeJson(".tut/data.json", repository.Data{Tags: []repository.Tag{}})
+	writeJson(".tut/data.json", repository.Data{Sections: []repository.Section{}})
 	writeJson(".tut/stage.json", []repository.SourceCode{})
 }

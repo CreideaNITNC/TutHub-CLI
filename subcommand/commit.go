@@ -31,7 +31,7 @@ func Commit(args []string) {
 	}
 	var data repository.Data
 	readJson(".tut/data.json", &data)
-	if len(data.Tags) == 0 {
+	if len(data.Sections) == 0 {
 		panic(fmt.Errorf("セクションが１つも定義されていません。tut start-sectionコマンドで最初のセクションを作成してください。"))
 	}
 	var sourceCodes []repository.SourceCode
@@ -59,7 +59,7 @@ func Commit(args []string) {
 	if id, error := uuid.NewRandom(); error != nil {
 		panic(error)
 	} else {
-		data.Tags[len(data.Tags)-1].Commits = append(data.Tags[len(data.Tags)-1].Commits, repository.Commit{Id: id.String(), Message: *message, Codes: sourceCodes, Pictures: pictures})
+		data.Sections[len(data.Sections)-1].Commits = append(data.Sections[len(data.Sections)-1].Commits, repository.Commit{Id: id.String(), Message: *message, Codes: sourceCodes, Pictures: pictures})
 	}
 	writeJson(".tut/data.json", data)
 	writeJson(".tut/stage.json", []repository.SourceCode{})

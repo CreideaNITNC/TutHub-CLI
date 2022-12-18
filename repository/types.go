@@ -14,13 +14,13 @@ type Commit struct {
 	Codes    []SourceCode `json:"codes"`
 	Pictures []Picture    `json:"pictures"`
 }
-type Tag struct {
+type Section struct {
 	Id      string   `json:"id"`
 	Name    string   `json:"name"`
 	Commits []Commit `json:"commits"`
 }
 type Data struct {
-	Tags []Tag `json:"tags"`
+	Sections []Section `json:"sections"`
 }
 type RemoteRepository struct {
 	Name string `json:"name"`

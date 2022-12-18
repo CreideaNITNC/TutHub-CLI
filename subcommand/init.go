@@ -21,5 +21,5 @@ func Init(args []string) {
 	}
 	writeJson(".tut/config.json", repository.Config{Remote: []repository.RemoteRepository{}})
 	writeJson(".tut/data.json", repository.Data{Tags: []repository.Tag{}})
-	writeJson(".tut/stage.json", []repository.File{})
+	writeJson(".tut/stage.json", []repository.SourceCode{})
 }

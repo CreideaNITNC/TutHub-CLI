@@ -1,14 +1,18 @@
 package repository
 
-type File struct {
+type Picture struct {
+	Name   string `json:"name"`
+	Binary string `json:"bin"`
+}
+type SourceCode struct {
 	Name    string `json:"name"`
-	Type    string `json:"type"`
 	Content string `json:"content"`
 }
 type Commit struct {
-	Id      string `json:"id"`
-	Message string `json:"message"`
-	Files   []File `json:"files"`
+	Id       string       `json:"id"`
+	Message  string       `json:"message"`
+	Codes    []SourceCode `json:"codes"`
+	Pictures []Picture    `json:"pictures"`
 }
 type Tag struct {
 	Id      string   `json:"id"`

@@ -18,7 +18,7 @@ func StartSection(args []string) {
 	if id, error := uuid.NewRandom(); error != nil {
 		panic(error)
 	} else {
-		data.Tags = append(data.Tags, repository.Tag{Id: id.String(), Name: flags.Arg(0), Commits: []repository.Commit{}})
+		data.Sections = append(data.Sections, repository.Section{Id: id.String(), Name: flags.Arg(0), Commits: []repository.Commit{}})
 	}
 	writeJson(".tut/data.json", data)
 }

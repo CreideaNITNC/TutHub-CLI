@@ -7,35 +7,45 @@ import (
 	"tut/repository"
 )
 
+const MaxSourceFileByteSize = 100_000 /* 100[KB] */
+
 func Add(args []string) {
 	flags := flag.NewFlagSet("add", flag.ExitOnError)
 	flags.Parse(args)
 	if flags.NArg() == 0 {
 		panic(fmt.Errorf("引数は最低でも１つ必要です。"))
 	}
-	var stage []repository.File
+	var stage []repository.SourceCode
 	readJson(".tut/stage.json", &stage)
 outer:
 	for _, arg := range flags.Args() {
-		file, error := os.Open(arg)
-		defer file.Close()
-		if error != nil {
-			panic(error)
+		sourceFile, err := os.Open(arg)
+		if err != nil {
+			sourceFile.Close()
+			panic(err)
 		}
-		content := make([]byte, 1024)
-		var newFile repository.File
-		if count, error := file.Read(content); error != nil {
-			panic(error)
+		content := make([]byte, MaxSourceFileByteSize)
+		var newSourceCode repository.SourceCode
+		if count, err := sourceFile.Read(content); err != nil {
+			panic(err)
 		} else {
-			newFile = repository.File{Name: arg, Type: "text", Content: string(content[:count])}
+			newSourceCode = repository.SourceCode{Name: arg, Content: string(content[:count])}
 		}
 		for i, _ := range stage {
 			if arg == stage[i].Name {
-				stage[i] = newFile
+				stage[i] = newSourceCode
+				err := sourceFile.Close()
+				if err != nil {
+					panic(err)
+				}
 				continue outer
 			}
 		}
-		stage = append(stage, newFile)
+		stage = append(stage, newSourceCode)
+		err = sourceFile.Close()
+		if err != nil {
+			panic(err)
+		}
 	}
 	writeJson(".tut/stage.json", stage)
 }
